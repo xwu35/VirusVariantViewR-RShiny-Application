@@ -1,6 +1,6 @@
 # VirusVariantViewR-RShiny-Application
 ------
-VirusVariantViewR RShiny application for viewing output from VirusVariantViewR-HTCF-Snake workflow.
+VirusVariantViewR RShiny application for viewing output from VirusVariantViewR Snakemake workflow.
 
 Please visit the VirusVariantViewR application:
 
