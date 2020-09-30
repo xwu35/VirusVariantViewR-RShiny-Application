@@ -18,4 +18,8 @@ How to use:
 
 4. Edit the VirusVariantViewR-RShiny-Application_config.txt file to contain the path to the results directory.  This path can be absolute or relative to the repository. Please do not include a trailing slash. Only the first line in the file will be read to determine the location of the results directory.
 
-5. Open the VirusVariantViewR_app.Rproj in RStudio.  Open app.R and hit "Run" in the top of the source pane.
+5. Open the VirusVariantViewR_app.Rproj in RStudio.  If not installed, install the "shiny" package:
+```
+install.packages("shiny")
+```
+Open app.R and hit "Run" in the top of the source pane.
