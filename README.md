@@ -28,4 +28,4 @@ git clone recurse-submodules https://github.com/RachelRodgers/VirusVariantViewR-
 install.packages("shiny")
 ```
 
-7.Open app.R and hit "Run" in the top of the source pane.
+7. Open app.R and hit "Run" in the top of the source pane. Please note that the program will automatically attempt to install any missing but required R packages. It is possible R will need to reload during this process, and upon restarting will stop.  Simply hit the "Run App" button again to re-start the process.
