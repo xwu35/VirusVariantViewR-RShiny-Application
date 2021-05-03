@@ -45,7 +45,7 @@ resultsPath <- readLines("VirusVariantViewR-RShiny-Application_config.txt",
 dataSetFilePath <- paste0(resultsPath, "/dataSet.txt")
 
 # Data set name from VirusVariantViewR_datasets.txt
-dataSet <- readLines(dataSetFilePath, warn = FALSE, n = 1)
+dataSet <- readLines(dataSetFilePath, warn = FALSE)
 
 previousMtxSize <- 0 # for determining when to re-paint the coverage plot
 
