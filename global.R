@@ -253,7 +253,7 @@ GetVCF <- function(dataSet, sample) {
   }
 
   vcfFileFormatted <- vcfFile %>%
-    select(keepCols)
+    select(all_of(keepCols))
   
   comment(vcfFileFormatted) <- sample
   
