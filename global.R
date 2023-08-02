@@ -146,7 +146,7 @@ BuildSampleObjects <- function(dataSet, sampleVector) {
 
 # Alignment Count Data #
 GenerateSampleData <- function(dataSet) {
-
+  
   # Read in sample alignment count data, calculate percent MNV
   readCounts <- read.delim(paste0(resultsPath, "/", dataSet, "/alignment_counts.txt"),
                            colClasses = c("character", "numeric", "numeric", "numeric"))
@@ -157,7 +157,7 @@ GenerateSampleData <- function(dataSet) {
   # Genome Coverage Data #
   # Read in genome coverage count data, calculate avg. genome coverage
   rawFiles <- list.files(path = paste0(resultsPath, "/", dataSet, "/sample_data/genome_coverage/"), 
-                         pattern = "*_coverage.txt")
+                         pattern = "._coverage.txt$")
   
   # column names determined from documentation at 
   # https://bedtools.readthedocs.io/en/latest/content/tools/genomecov.html
@@ -253,7 +253,7 @@ GetVCF <- function(dataSet, sample) {
   }
 
   vcfFileFormatted <- vcfFile %>%
-    select(keepCols)
+    select(all_of(keepCols))
   
   comment(vcfFileFormatted) <- sample
   

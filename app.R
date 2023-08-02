@@ -14,13 +14,14 @@ ui <- tagList(
   
   navbarPage(
     
-    theme = shinytheme("flatly"),
+    #theme = shinytheme("flatly"),
     title = "VariantViewR", id = "navbarpage",
     
     tabPanel(title = "Data Set Selection",
            selectInput(inputId = "dataSetSelect",
                        label = "Available Data Sets:",
-                       choices = c(dataSet)),
+                       choices = c(dataSet),
+                       width = "50%"),
 
            actionButton(inputId = "go", label = "Go"),
            verbatimTextOutput("buttonValue")),
