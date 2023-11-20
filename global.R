@@ -178,6 +178,13 @@ GenerateSampleData <- function(dataSet) {
                               header = FALSE,
                               col.names = columnNames)
     currentData <- currentData %>%
+      # ignore lines where chromosome == "genome"
+      #  TODO: will need to be more sophisticated and match the name of the
+      #     genome being used as reference. But currently that's not tracked
+      #     in this code. A better solution is to turn off this calculation,
+      #     filter the file in the snakemake workflow, or
+      #     find a different way to make it in the first place.
+      dplyr::filter(chromosome != "genome") %>% 
       dplyr::select(depth, number_of_bases) %>%
       dplyr::mutate(product = depth * number_of_bases)
     
