@@ -196,12 +196,43 @@ GenerateSampleData <- function(dataSet) {
     
   }
   
+  # Bases with Minimum Coverage Calculation #
+  # Calculate % of bases in the sample that have a min cov/depth of 50 bp
+  percentBaseVec <- vector(mode = "integer", length = length(rawFiles))
+  
+  for (i in 1:length(rawFiles)) {
+    
+    currentFile <- rawFiles[i]
+    currentFileName <- as.vector(strsplit(currentFile, "_coverage.txt")[[1]])
+    
+    currentData <- read.delim(paste0(resultsPath, "/", dataSet, 
+                                     "/sample_data/genome_coverage/", 
+                                     currentFile), 
+                              header = FALSE,
+                              col.names = columnNames)
+    
+    # Remove lines starting with "genome", then select depth >= 50
+    filteredData <- currentData %>%
+      dplyr::filter(chromosome != "genome",
+                    depth >= 50)
+    
+    percent_bases <- round(sum(filteredData$fraction_of_bases)*100, digits = 2)
+    
+    percentBaseVec[i] <- percent_bases
+    names(percentBaseVec)[i] <- currentFileName
+      
+  }
+  
   # Try to Merge Metadata #
-  # Add the average genome coverage numbers to the readCounts data
+  # Add the average genome coverage numbers and the percent bases with min 
+  #   coverage to the readCounts data
   sampleData <- readCounts %>%
-    dplyr::mutate("avg_genome_cov" = genomeCovVec[sample]) %>%
-    dplyr::select(sample, total_reads, percent_MNV, avg_genome_cov)
-  names(sampleData) <- c("Sample", "Total Reads", "% MNV", "Average Coverage")
+    dplyr::mutate("avg_genome_cov" = genomeCovVec[sample],
+                  "percent_bases" = percentBaseVec[sample]) %>%
+    dplyr::select(sample, total_reads, percent_MNV, avg_genome_cov,
+                  percent_bases)
+  names(sampleData) <- c("Sample", "Total Reads", "% MNV", "Average Coverage",
+                         "% Bases with >= 50 reads")
   sampleData$Sample <- as.character(sampleData$Sample)
   
   # Do we need to add metadata?
@@ -227,7 +258,6 @@ GenerateSampleData <- function(dataSet) {
   }
 
 }
-
 
 #----- Generate Sample Variant Table -----#
 
