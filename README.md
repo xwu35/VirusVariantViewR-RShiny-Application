@@ -4,7 +4,7 @@ VirusVariantViewR RShiny application for viewing output from VirusVariantViewR S
 
 Please visit the VirusVariantViewR application:
 
-https://baldridge-lab-wustl.shinyapps.io/VirusVariantViewR/
+https://baldridgeapps.wustl.edu/VirusVariantViewR/
 
 ------
 
