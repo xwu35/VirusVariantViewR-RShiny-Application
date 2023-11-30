@@ -30,6 +30,7 @@ ui <- tagList(
              # checkbox for selecting/deselecting all
              #checkboxInput(inputId = "dt_sel", "sel/desel all"),
              #verbatimTextOutput(outputId = "selected_cells", TRUE),
+             h4(textOutput("current_dataset")),
              h3("Select from the Sample column to view information:"),
              br(),
              br(),
@@ -104,6 +105,11 @@ server <- function(input, output, session) {
     
     # clear the vector that will hold user-selected samples for coverage disaplay:
     sampleVec <<- vector(mode = "character")
+    
+    #----- Data set name -----#
+    output$current_dataset <- renderText({
+      paste("Current data set: ", input$dataSetSelect)
+    })
 
     #----- Display Sample Data Table -----#
   
