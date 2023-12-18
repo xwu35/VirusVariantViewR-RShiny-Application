@@ -35,6 +35,7 @@ ui <- tagList(
              br(),
              br(),
            DT::dataTableOutput(outputId = "sampleDataTable"),
+           downloadButton("downloadData", "Download Sample Table"),
            actionButton(inputId = "inspVariants", 
                         label = "Inspect Variants",
                         icon("fas fa-search")),
@@ -127,6 +128,16 @@ server <- function(input, output, session) {
     })
   })
   
+  #----- Download Sample Data Table -----#
+  output$downloadData <- downloadHandler(
+    filename = function() {
+      paste0(input$dataSetSelect, "_sample_table.csv")
+    },
+    content = function(file) {
+      write.csv(GetSampleData(), file, row.names = FALSE)
+    }
+  )
+
   #----- Sample Selection -----#
   
   #----- Select/Deselect All -----#
