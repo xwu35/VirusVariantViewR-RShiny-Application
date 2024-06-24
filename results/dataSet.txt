@@ -1,7 +1,1 @@
-NB001_NB002_Combined_CR6_Evolution_Experiments
-220802_SA_62_ViralEvolutionCR6
-220214_MES_viral_evolution
-220223_MES_viral_evolution_missing_spikeIn
-orchard_trim7_CR6
-NB001
 Combined_Data
