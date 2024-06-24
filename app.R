@@ -35,6 +35,7 @@ ui <- tagList(
              br(),
              br(),
            DT::dataTableOutput(outputId = "sampleDataTable"),
+           downloadButton("downloadData", "Download Sample Table"),
            actionButton(inputId = "inspVariants", 
                         label = "Inspect Variants",
                         icon("fas fa-search")),
@@ -69,6 +70,9 @@ ui <- tagList(
     
     tabPanel(title = "Variants", value = "variantTab",
              textInput(inputId = "variantTabTextBox", label = "Current Sample:"),
+             downloadButton("downloadVariant", "Download Variants Table"),
+             br(),
+             br(),
              DT::DTOutput(outputId = "variantTabDT"),
              plotOutput(outputId = "variantTabCoveragePlot")),
     
@@ -127,6 +131,16 @@ server <- function(input, output, session) {
     })
   })
   
+  #----- Download Sample Data Table -----#
+  output$downloadData <- downloadHandler(
+    filename = function() {
+      paste0(input$dataSetSelect, "_sample_table.csv")
+    },
+    content = function(file) {
+      write.csv(GetSampleData(), file, row.names = FALSE)
+    }
+  )
+
   #----- Sample Selection -----#
   
   #----- Select/Deselect All -----#
@@ -386,7 +400,19 @@ server <- function(input, output, session) {
       })
     }
   }) # end of variant selection observeEvent
-    
+
+  #----- Download Variants Table -----#
+  output$downloadVariant <- downloadHandler(
+    filename = function() {
+      paste0(input$dataSetSelect, "_", GetSampleVec(), "_variants_table.csv")
+    },
+    content = function(file) {
+      write.csv(GetVCF(dataSet = input$dataSetSelect,
+                       sample = GetSampleVec()), file, row.names = FALSE)
+      # write.table(GetSampleData(), file, sep="\t", row.names = F)
+    }
+  )
+  
 }
 
 shinyApp(ui = ui, server = server)
